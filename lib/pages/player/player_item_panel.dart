@@ -92,6 +92,9 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
       Modular.get<DownloadController>();
   final TextEditingController textController = TextEditingController();
   final FocusNode textFieldFocus = FocusNode();
+  // Clock
+  Stream<DateTime>? _clockStream;
+
   // SVG Caches
   String? cachedSvgString;
   Widget? cachedDanmakuOnIcon;
@@ -304,6 +307,10 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
       curve: Curves.easeInOut,
     ));
     haEnable = setting.get(SettingBoxKey.hAenable, defaultValue: true);
+    _clockStream = Stream<DateTime>.periodic(
+      const Duration(seconds: 1),
+      (_) => DateTime.now(),
+    ).asBroadcastStream();
     cacheSvgIcons();
   }
 
@@ -389,11 +396,57 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
     );
   }
 
+  Widget get _clockWidget => StreamBuilder<DateTime>(
+        stream: _clockStream,
+        builder: (context, snapshot) {
+          final now = snapshot.data ?? DateTime.now();
+          final hour = now.hour.toString().padLeft(2, '0');
+          final minute = now.minute.toString().padLeft(2, '0');
+          return Text(
+            '$hour:$minute',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
+          );
+        },
+      );
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
+        // 系统时间 - 顶部居中
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Observer(builder: (context) {
+            return Visibility(
+              visible: !playerController.lockPanel &&
+                  (widget.disableAnimations
+                      ? playerController.showVideoController
+                      : true),
+              child: widget.disableAnimations
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 12.0),
+                        child: _clockWidget,
+                      ),
+                    )
+                  : SlideTransition(
+                      position: topOffsetAnimation,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 12.0),
+                          child: _clockWidget,
+                        ),
+                      ),
+                    ),
+            );
+          }),
+        ),
         AnimatedPositioned(
           duration: const Duration(seconds: 1),
           top: 0,

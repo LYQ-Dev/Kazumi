@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter pub *)",
+      "Bash(flutter doctor *)",
+      "Bash(git submodule *)",
+      "Bash(flutter run *)",
+      "Bash(tasklist)",
+      "Bash(dir \"d:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\\" 2>&1 | head -30 || echo \"Build directory not found\")",
+      "Bash(flutter build *)",
+      "Bash(where 7z)",
+      "Bash(find \"d:/Flutter_SDK/.pub-cache\" -path \"*/media_kit_libs_windows_video*\" -name \"CMakeLists.txt\" 2>/dev/null | head -5)",
+      "Read(//d/Flutter_SDK/**)",
+      "Bash(find /c/Users/lyq/AppData/Local/Pub -path \"*/media_kit_libs_windows_video*\" -name \"CMakeLists.txt\" 2>/dev/null | head -5)",
+      "Read(//c/Users/lyq/AppData/Local/Pub/**)",
+      "Bash(python3 -c \"import py7zr; print\\('py7zr available'\\)\")",
+      "Bash(python3 -c \"import zipfile; print\\('zipfile only'\\)\")",
+      "Bash(rm -f \"build/windows/x64/mpv-dev-x86_64-20251210-git-ad59ff1.7z\")",
+      "Bash(rm -rf \"build/windows/x64/libmpv\")",
+      "Bash(rm -rf \"build/windows/x64/plugins/media_kit_libs_windows_video\")",
+      "Bash(reg query *)",
+      "Read(//c/Program Files/7-Zip/**)",
+      "Read(//d/Program Files/7-Zip/**)",
+      "Bash(where 7z.exe)",
+      "Bash(cmd.exe /c \"where 7z\")",
+      "Bash(ls -la \"D:/7-Zip/7z.exe\" 2>&1)",
+      "Read(//d/7-Zip/**)",
+      "Bash(rm -rf \"build/windows/x64/plugins/media_kit_libs_windows_audio\")",
+      "Bash(taskkill /F /IM dart.exe)",
+      "Bash(taskkill /F /IM dartvm.exe)",
+      "Bash(taskkill /F /IM dartaotruntime.exe)",
+      "Bash(cmd.exe /c \"taskkill /F /IM dart.exe & taskkill /F /IM dartvm.exe & taskkill /F /IM dartaotruntime.exe\")",
+      "Bash(cmd.exe /c \"tasklist | findstr dart\")",
+      "Bash(cmd.exe /c \"del /f d:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\mpv-dev-x86_64-20251210-git-ad59ff1.7z\")",
+      "Bash(cmd.exe //c \"del /f /q D:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\mpv-dev-x86_64-20251210-git-ad59ff1.7z && echo DELETED || echo FAILED\")"
+    ]
+  }
+}

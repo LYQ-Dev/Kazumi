@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd.exe //c \"D:\\\\7-Zip\\\\7z.exe x D:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\mpv-temp.7z -oD:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\libmpv -y\")",
+      "Bash(cp -r include/mpv mpv)",
+      "Bash(rm -rf include)",
+      "Bash(mv mpv *)"
+    ]
+  }
+}
