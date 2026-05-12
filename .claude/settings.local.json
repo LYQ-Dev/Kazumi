@@ -32,7 +32,21 @@
       "Bash(cmd.exe /c \"taskkill /F /IM dart.exe & taskkill /F /IM dartvm.exe & taskkill /F /IM dartaotruntime.exe\")",
       "Bash(cmd.exe /c \"tasklist | findstr dart\")",
       "Bash(cmd.exe /c \"del /f d:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\mpv-dev-x86_64-20251210-git-ad59ff1.7z\")",
-      "Bash(cmd.exe //c \"del /f /q D:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\mpv-dev-x86_64-20251210-git-ad59ff1.7z && echo DELETED || echo FAILED\")"
+      "Bash(cmd.exe //c \"del /f /q D:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\mpv-dev-x86_64-20251210-git-ad59ff1.7z && echo DELETED || echo FAILED\")",
+      "Bash(cmd.exe //c \"mklink /J D:\\\\AndroidSDK\\\\platforms\\\\android-36 D:\\\\AndroidSDK\\\\platforms\\\\android-36.1\")",
+      "Bash(rm -f \"D:/AndroidSDK/platforms/android-36\")",
+      "Bash(cmd.exe //c \"rmdir D:\\\\AndroidSDK\\\\platforms\\\\android-36\")",
+      "Bash(rm -f \"D:/AndroidSDK/platforms/android-36\" 2>/dev/null && cmd.exe //c \"rmdir D:\\\\AndroidSDK\\\\platforms\\\\android-36\" 2>&1; cmd.exe //c \"mklink /J D:\\\\AndroidSDK\\\\platforms\\\\android-36 D:\\\\AndroidSDK\\\\platforms\\\\android-36.1\" 2>&1)",
+      "Bash(cmd.exe //c \"dir D:\\\\AndroidSDK\\\\platforms\\\\\" 2>&1 && echo \"---\" && cat \"D:/AndroidSDK/platforms/android-36.1/source.properties\" 2>/dev/null)",
+      "Bash(cmd.exe //c \"rmdir /s /q D:\\\\AndroidSDK\\\\platforms\\\\android-36\")",
+      "Bash(cmd.exe //c \"xcopy /E /I D:\\\\AndroidSDK\\\\platforms\\\\android-36.1 D:\\\\AndroidSDK\\\\platforms\\\\android-36\")",
+      "Bash(cmd.exe //c \"dir /AL D:\\\\AndroidSDK\\\\platforms\")",
+      "Bash(/d/AndroidSDK/cmdline-tools/latest/bin/sdkmanager.bat \"platforms;android-36\")"
+    ],
+    "additionalDirectories": [
+      "D:\\Flutter_SDK\\packages\\flutter_tools\\gradle",
+      "C:\\Users\\lyq\\AppData\\Local\\Pub\\Cache\\git\\media-kit-21aacaf9600c4bd00f2a3c57310363bc0cc9597f\\libs\\android\\media_kit_libs_android_video\\android",
+      "D:\\AndroidSDK\\platforms"
     ]
   }
 }

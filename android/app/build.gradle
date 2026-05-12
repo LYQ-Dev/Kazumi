@@ -24,10 +24,10 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.kazumi"
-    compileSdk flutter.compileSdkVersion
+    compileSdk 36
     // Pin ndk version to 21.3.6528147 to fix android build warning
     // The build warning throws by gradle plugin, when the ndk is older than gradle plugin required version
-    ndkVersion "27.2.12479018"
+    ndkVersion "27.0.12077973"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17

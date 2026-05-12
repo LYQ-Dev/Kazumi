@@ -4,7 +4,30 @@
       "Bash(cmd.exe //c \"D:\\\\7-Zip\\\\7z.exe x D:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\mpv-temp.7z -oD:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\libmpv -y\")",
       "Bash(cp -r include/mpv mpv)",
       "Bash(rm -rf include)",
-      "Bash(mv mpv *)"
+      "Bash(mv mpv *)",
+      "Bash(flutter config *)",
+      "Read(//c/Users/lyq/AppData/Local/Android/**)",
+      "Read(//d/Android/**)",
+      "Bash(mkdir -p dist)",
+      "Bash(cmd.exe //c \"D:\\\\7-Zip\\\\7z.exe a -tzip -r D:\\\\Project\\\\Kazumi\\\\dist\\\\kazumi-windows-x64-v2.1.1.zip .\")",
+      "Bash(cmd.exe //c \"cd /d D:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\runner\\\\Release && D:\\\\7-Zip\\\\7z.exe a -tzip -r D:\\\\Project\\\\Kazumi\\\\dist\\\\kazumi-windows-x64-v2.1.1.zip *\")",
+      "Bash(cmd.exe //c \"cd /d D:\\\\Project\\\\Kazumi\\\\build\\\\windows\\\\x64\\\\runner\\\\Release && D:\\\\7-Zip\\\\7z.exe a -tzip D:\\\\Project\\\\Kazumi\\\\dist\\\\kazumi-windows-x64-v2.1.1.zip .\")",
+      "Bash(yes)",
+      "Bash(ls \"D:/AndroidSDK\" 2>&1 | head -15)",
+      "Read(//d/AndroidSDK/**)",
+      "Bash(export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn)",
+      "Bash(export PUB_HOSTED_URL=https://pub.flutter-io.cn)",
+      "Bash(flutter precache *)",
+      "Bash(cmd.exe //c \"taskkill /F /IM dart.exe & taskkill /F /IM dartvm.exe & taskkill /F /IM flutter.exe & taskkill /F /IM dartaotruntime.exe\")",
+      "Bash(stat \"C:\\\\Users\\\\lyq\\\\.gradle\\\\caches\\\\modules-2\\\\files-2.1\" 2>/dev/null && du -sh \"C:\\\\Users\\\\lyq\\\\.gradle\" 2>/dev/null || echo \"checking...\")",
+      "Read(//c/Users/lyq/.gradle/caches/modules-2/files-2.1/**)",
+      "Read(//c/Users/lyq/.gradle//**)",
+      "Read(//c/Users/lyq/.gradle/daemon//**)",
+      "Bash(cmd.exe //c \"taskkill /F /PID 15044 & taskkill /F /IM java.exe\")",
+      "Bash(cmd.exe //c \"tasklist /FI \\\\\"PID eq 5088\\\\\" 2>&1 | findstr java\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\lyq\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\jni-1.0.0\\android"
     ]
   }
 }
