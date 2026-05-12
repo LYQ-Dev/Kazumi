@@ -105,81 +105,84 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
   static const double _loadingIndicatorStrokeWidth = 2.0;
 
   Widget get danmakuTextField {
-    return Container(
-      constraints: Utils.isDesktop()
-          ? const BoxConstraints(maxWidth: 500, maxHeight: 33)
-          : const BoxConstraints(maxHeight: 33),
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: TextField(
-        focusNode: textFieldFocus,
-        style: TextStyle(
-            fontSize: Utils.isDesktop() ? 15 : 13, color: Colors.white),
-        controller: textController,
-        textAlignVertical: TextAlignVertical.center,
-        decoration: InputDecoration(
-          enabled: playerController.danmakuOn,
-          filled: true,
-          fillColor: Colors.white38,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          hintText: playerController.danmakuOn ? '发个友善的弹幕见证当下' : '已关闭弹幕',
-          hintStyle: TextStyle(
-              fontSize: Utils.isDesktop() ? 15 : 13, color: Colors.white60),
-          alignLabelWithHint: true,
-          contentPadding: EdgeInsets.symmetric(
-              vertical: 8, horizontal: Utils.isDesktop() ? 8 : 12),
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius:
-                BorderRadius.all(Radius.circular(Utils.isDesktop() ? 8 : 20)),
-          ),
-          suffixIconConstraints: const BoxConstraints(minWidth: 0),
-          suffixIcon: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextButton(
-                onPressed: () {
-                  textFieldFocus.unfocus();
-                  widget
-                      .showDanmakuDestinationPickerAndSend(textController.text);
-                  textController.clear();
-                },
-                style: TextButton.styleFrom(
-                  foregroundColor: playerController.danmakuOn
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : Colors.white60,
-                  backgroundColor: playerController.danmakuOn
-                      ? Theme.of(context).colorScheme.primaryContainer
-                      : Theme.of(context).disabledColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(Utils.isDesktop() ? 8 : 20),
+    return Opacity(
+      opacity: 0.5,
+      child: Container(
+        constraints: Utils.isDesktop()
+            ? const BoxConstraints(maxWidth: 500, maxHeight: 33)
+            : const BoxConstraints(maxHeight: 33),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: TextField(
+          focusNode: textFieldFocus,
+          style: TextStyle(
+              fontSize: Utils.isDesktop() ? 15 : 13, color: Colors.white),
+          controller: textController,
+          textAlignVertical: TextAlignVertical.center,
+          decoration: InputDecoration(
+            enabled: playerController.danmakuOn,
+            filled: true,
+            fillColor: Colors.white38,
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            hintText: playerController.danmakuOn ? '发个友善的弹幕见证当下' : '已关闭弹幕',
+            hintStyle: TextStyle(
+                fontSize: Utils.isDesktop() ? 15 : 13, color: Colors.white60),
+            alignLabelWithHint: true,
+            contentPadding: EdgeInsets.symmetric(
+                vertical: 8, horizontal: Utils.isDesktop() ? 8 : 12),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.all(
+                  Radius.circular(Utils.isDesktop() ? 8 : 20)),
+            ),
+            suffixIconConstraints: const BoxConstraints(minWidth: 0),
+            suffixIcon: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    textFieldFocus.unfocus();
+                    widget.showDanmakuDestinationPickerAndSend(
+                        textController.text);
+                    textController.clear();
+                  },
+                  style: TextButton.styleFrom(
+                    foregroundColor: playerController.danmakuOn
+                        ? Theme.of(context).colorScheme.onPrimaryContainer
+                        : Colors.white60,
+                    backgroundColor: playerController.danmakuOn
+                        ? Theme.of(context).colorScheme.primaryContainer
+                        : Theme.of(context).disabledColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(Utils.isDesktop() ? 8 : 20),
+                    ),
                   ),
+                  child: const Text('发送'),
                 ),
-                child: const Text('发送'),
-              ),
-            ],
+              ],
+            ),
           ),
+          onTapAlwaysCalled: true,
+          onTap: () {
+            widget.cancelHideTimer();
+            playerController.canHidePlayerPanel = false;
+          },
+          onSubmitted: (msg) {
+            textFieldFocus.unfocus();
+            widget.showDanmakuDestinationPickerAndSend(msg);
+            widget.cancelHideTimer();
+            widget.startHideTimer();
+            playerController.canHidePlayerPanel = true;
+            textController.clear();
+          },
+          onTapOutside: (_) {
+            widget.cancelHideTimer();
+            widget.startHideTimer();
+            playerController.canHidePlayerPanel = true;
+            textFieldFocus.unfocus();
+            widget.keyboardFocus.requestFocus();
+          },
         ),
-        onTapAlwaysCalled: true,
-        onTap: () {
-          widget.cancelHideTimer();
-          playerController.canHidePlayerPanel = false;
-        },
-        onSubmitted: (msg) {
-          textFieldFocus.unfocus();
-          widget.showDanmakuDestinationPickerAndSend(msg);
-          widget.cancelHideTimer();
-          widget.startHideTimer();
-          playerController.canHidePlayerPanel = true;
-          textController.clear();
-        },
-        onTapOutside: (_) {
-          widget.cancelHideTimer();
-          widget.startHideTimer();
-          playerController.canHidePlayerPanel = true;
-          textFieldFocus.unfocus();
-          widget.keyboardFocus.requestFocus();
-        },
       ),
     );
   }
