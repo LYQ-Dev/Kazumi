@@ -20,9 +20,9 @@ import io.flutter.plugin.common.MethodChannel
 import com.ryanheise.audioservice.AudioServiceActivity
 
 class MainActivity: AudioServiceActivity() {
-    private val CHANNEL = "com.predidit.kazumi/intent"
-    private val STORAGE_CHANNEL = "com.predidit.kazumi/storage"
-    private val PIP_CHANNEL = "com.predidit.kazumi/pip"
+    private val CHANNEL = "com.elysia/intent"
+    private val STORAGE_CHANNEL = "com.elysia/storage"
+    private val PIP_CHANNEL = "com.elysia/pip"
     private var intentChannel: MethodChannel? = null
     private var pipChannel: MethodChannel? = null
 
@@ -34,9 +34,9 @@ class MainActivity: AudioServiceActivity() {
     private var pipAspectWidth = 16
     private var pipAspectHeight = 9
 
-    private val actionPipPlayPause = "com.predidit.kazumi.pip.PLAY_PAUSE"
-    private val actionPipForward = "com.predidit.kazumi.pip.FORWARD"
-    private val actionPipToggleDanmaku = "com.predidit.kazumi.pip.TOGGLE_DANMAKU"
+    private val actionPipPlayPause = "com.elysia.pip.PLAY_PAUSE"
+    private val actionPipForward = "com.elysia.pip.FORWARD"
+    private val actionPipToggleDanmaku = "com.elysia.pip.TOGGLE_DANMAKU"
 
     private val pipActionReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: android.content.Context?, intent: Intent?) {

@@ -51,6 +51,10 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        ndk {
+            abiFilters "arm64-v8a", "armeabi-v7a"
+        }
     }
 
     buildTypes {
@@ -74,7 +78,7 @@ dependencies {}
 // * https://developer.android.com/build/gradle-tips
 // * https://developer.android.com/studio/build/configure-apk-splits
 // * https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/im.nfc.nfsee.yml
-ext.abiCodes = ["armeabi-v7a": 1, "arm64-v8a": 2, "x86_64": 4]
+ext.abiCodes = ["armeabi-v7a": 1, "arm64-v8a": 2]
 import com.android.build.OutputFile
 android.applicationVariants.all { variant ->
     variant.outputs.each { output ->

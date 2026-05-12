@@ -21,7 +21,7 @@ class PipUtils {
     if (!Platform.isAndroid) {
       return false;
     }
-    const pipChannel = MethodChannel('com.predidit.kazumi/pip');
+    const pipChannel = MethodChannel('com.elysia/pip');
     try {
       final bool? supported =
           await pipChannel.invokeMethod('isPictureInPictureSupported');
@@ -38,7 +38,7 @@ class PipUtils {
       return false;
     }
     final Size aspectSize = getPIPAspectSize(width: width, height: height);
-    const pipChannel = MethodChannel('com.predidit.kazumi/pip');
+    const pipChannel = MethodChannel('com.elysia/pip');
     try {
       final bool? entered =
           await pipChannel.invokeMethod('enterPictureInPictureMode', {
@@ -62,7 +62,7 @@ class PipUtils {
       return;
     }
     final Size aspectSize = getPIPAspectSize(width: width, height: height);
-    const pipChannel = MethodChannel('com.predidit.kazumi/pip');
+    const pipChannel = MethodChannel('com.elysia/pip');
     try {
       await pipChannel.invokeMethod('updatePictureInPictureActions', {
         'playing': playing,
@@ -79,7 +79,7 @@ class PipUtils {
     if (!Platform.isAndroid) {
       return;
     }
-    const pipChannel = MethodChannel('com.predidit.kazumi/pip');
+    const pipChannel = MethodChannel('com.elysia/pip');
     try {
       await pipChannel.invokeMethod('setAndroidAutoEnterPIPEnabled', {
         'enabled': enabled,
@@ -94,7 +94,7 @@ class PipUtils {
     if (!Platform.isAndroid) {
       return;
     }
-    const pipChannel = MethodChannel('com.predidit.kazumi/pip');
+    const pipChannel = MethodChannel('com.elysia/pip');
     try {
       await pipChannel.invokeMethod('setAndroidPIPInPlayerPage', {
         'inPlayerPage': inPlayerPage,
@@ -128,7 +128,7 @@ class PipUtils {
   static void initPipHandler({
     required Future<void> Function(String action) onAction,
   }) {
-    const MethodChannel pipChannel = MethodChannel('com.predidit.kazumi/pip');
+    const MethodChannel pipChannel = MethodChannel('com.elysia/pip');
     if (androidPIPInited) return;
     androidPIPInited = true;
 
@@ -148,7 +148,7 @@ class PipUtils {
   }
 
   static void disposePipHandler() {
-    const MethodChannel pipChannel = MethodChannel('com.predidit.kazumi/pip');
+    const MethodChannel pipChannel = MethodChannel('com.elysia/pip');
     pipChannel.setMethodCallHandler(null);
     androidPIPInited = false;
   }

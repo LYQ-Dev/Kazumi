@@ -68,7 +68,7 @@ void main() async {
   if (Utils.isDesktop()) {
     await windowManager.ensureInitialized();
     bool isLowResolution = await Utils.isLowResolution();
-    WindowOptions windowOptions = WindowOptions(
+      WindowOptions windowOptions = WindowOptions(
       size: isLowResolution ? const Size(840, 600) : const Size(1280, 860),
       center: true,
       skipTaskbar: false,
@@ -77,7 +77,7 @@ void main() async {
           ? TitleBarStyle.hidden
           : TitleBarStyle.normal,
       windowButtonVisibility: showWindowButton,
-      title: 'Kazumi',
+        title: 'Elysia',
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       // Native window show has been blocked in `flutter_windows.cppL36` to avoid flickering.
