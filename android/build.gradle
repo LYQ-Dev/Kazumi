@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:8.9.1"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.20"
     }
 }
 
@@ -34,4 +34,27 @@ subprojects {
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
+}
+
+// 强制所有模块（包括 :jni）统一使用 27 版本的 NDK
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            // 这里主要处理插件依赖，但对于 NDK 冲突，下面的方式更直接
+        }
+    }
+    // 强制设置 android 块中的 ndkVersion
+    plugins.withType(com.android.build.gradle.BasePlugin).configureEach {
+        project.android {
+            ndkVersion "28.2.13676358"
+        }
+    }
+    // 添加以下代码：强制统一 Kotlin 库版本，防止 2.3.21 等异常版本混入
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion "2.0.20"
+            }
+        }
+    }
 }
