@@ -33,6 +33,11 @@ dependencyResolutionManagement {
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         mavenCentral()
         google()
+        // Flutter engine artifacts: prefer local cached engine, then official Flutter storage
+        maven {
+            url = uri("${settings.ext.flutterSdkPath}/bin/cache/artifacts/engine/android")
+        }
+        maven { url 'https://storage.googleapis.com/download.flutter.io' }
     }
 }
 

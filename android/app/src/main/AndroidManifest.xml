@@ -7,6 +7,8 @@
         android:extractNativeLibs="true">
         <activity
             android:name=".MainActivity"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:ignore="Instantiatable"
             android:exported="true"
             android:launchMode="singleTop"
             android:supportsPictureInPicture="true"
