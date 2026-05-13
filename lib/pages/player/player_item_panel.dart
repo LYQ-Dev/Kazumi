@@ -333,6 +333,41 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
     );
   }
 
+  String _trimTitle(String title) {
+    final reg = RegExp(r'[\u4E00-\u9FFF\u3000-\u303F\uFF00-\uFFEF\.,，。！!？?；;：:、…\-–—·]');
+    String buffer = '';
+    int totalMatches = 0;
+    for (final m in reg.allMatches(title)) {
+      totalMatches++;
+      if (buffer.length < 16) {
+        buffer += m.group(0)!;
+      }
+    }
+    // 如果没有匹配到中文/标点，使用原始 title 截断判断
+    bool truncated = false;
+    if (buffer.isEmpty) {
+      truncated = title.length > 16;
+      buffer = title.length > 16 ? title.substring(0, 16) : title;
+    } else {
+      // 如果匹配到的数量超出可显示长度，认为需要截断
+      truncated = totalMatches > buffer.length;
+      if (!truncated && title.length > buffer.length) {
+        // 也可能原始 title 有其他字符导致显示不全
+        truncated = true;
+      }
+    }
+
+    if (truncated) {
+      if (buffer.length > 3) {
+        return buffer.substring(0, buffer.length - 3) + '...';
+      } else {
+        return buffer + '...';
+      }
+    }
+
+    return buffer;
+  }
+
   Widget danmakuOnIcon(BuildContext context) {
     final colorHex = Theme.of(context)
         .colorScheme
@@ -409,7 +444,8 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
             '$hour:$minute',
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 16.0,
+              fontSize: 20.0,
+              fontWeight: FontWeight.w600,
             ),
           );
         },
@@ -420,36 +456,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        // 系统时间 - 顶部居中
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Observer(builder: (context) {
-            return Visibility(
-              visible: !playerController.lockPanel &&
-                  (widget.disableAnimations
-                      ? playerController.showVideoController
-                      : true),
-              child: widget.disableAnimations
-                  ? Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 12.0),
-                        child: _clockWidget,
-                      ),
-                    )
-                  : SlideTransition(
-                      position: topOffsetAnimation,
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 12.0),
-                          child: _clockWidget,
-                        ),
-                      ),
-                    ),
-            );
-          }),
-        ),
+        // 顶部时间显示已移动到右上按钮旁（见 topControlWidget）
         AnimatedPositioned(
           duration: const Duration(seconds: 1),
           top: 0,
@@ -494,6 +501,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
             );
           }),
         ),
+        // 时钟已嵌入到顶部控制栏（快进按钮左侧）
         AnimatedPositioned(
           duration: const Duration(seconds: 1),
           bottom: 0,
@@ -1155,11 +1163,11 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
                     widget.onBackPressed(context);
                   },
                 ),
-                // 拖动条
+                // 拖动条（标题靠左，标题部分限制中文+标点最多16个）
                 Expanded(
                   child: dtb.DragToMoveArea(
                     child: Text(
-                      ' ${videoPageController.title} [${videoPageController.roadList[videoPageController.currentRoad].identifier[videoPageController.currentEpisode - 1]}]',
+                      '${_trimTitle(videoPageController.title)} [${videoPageController.roadList[videoPageController.currentRoad].identifier[videoPageController.currentEpisode - 1]}]',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize:
@@ -1169,6 +1177,13 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
                     ),
                   ),
                 ),
+
+                // 时钟（位于快进按钮左侧）
+                Padding(
+                  padding: const EdgeInsets.only(top: 2.0, left: 24.0, right: 4.0),
+                  child: _clockWidget,
+                ),
+                const SizedBox(width: 6),
                 // 跳过
                 forwardIcon(),
                 if ((Utils.isDesktop() && !videoPageController.isFullscreen) ||

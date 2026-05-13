@@ -52,10 +52,18 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
 
-        ndk {
-            abiFilters "arm64-v8a", "armeabi-v7a"
-        }
+        // ndk.abiFilters moved to splits.abi to avoid conflict with per-ABI APK splits
     }
+
+        // Only build per-ABI release APKs for these ABIs
+        splits {
+            abi {
+                enable true
+                reset()
+                include 'armeabi-v7a', 'arm64-v8a'
+                universalApk false
+            }
+        }
 
     buildTypes {
         release {
